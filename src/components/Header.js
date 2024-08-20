@@ -1,18 +1,42 @@
+import classNames from "classnames";
+import { NavLink } from "react-router-dom";
+
 function Header() {
   return (
     <>
       <header className="flex">
-        <span className="mr-auto p-3 font-bold">logo</span>
+        <NavLink
+          to="/main"
+          className="block mr-auto p-3 font-bold hover:text-red-500 cursor-pointer"
+        >
+          logo
+        </NavLink>
         <ul className="flex">
           <li>
-            <span className="block p-3 font-bold hover:cursor-pointer hover:text-red-500">
+            <NavLink
+              to="/main"
+              className={({ isActive }) =>
+                classNames(
+                  "block mr-auto p-3 font-bold hover:text-red-500 cursor-pointer",
+                  { "text-red-500": isActive }
+                )
+              }
+            >
               home
-            </span>
+            </NavLink>
           </li>
           <li>
-            <span className="block p-3 font-bold hover:cursor-pointer hover:text-red-500">
+            <NavLink
+              to="/history"
+              className={({ isActive }) =>
+                classNames(
+                  "block mr-auto p-3 font-bold hover:text-red-500 cursor-pointer",
+                  { "text-red-500": isActive }
+                )
+              }
+            >
               history
-            </span>
+            </NavLink>
           </li>
         </ul>
       </header>
