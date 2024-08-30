@@ -11,3 +11,21 @@ html, body, #root {
   display: flex;
   flex-direction: column;
 }
+
+:root {
+  overflow-y: overlay;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(45, 45, 45, 0.3);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.font-mono {
+  font-family: 'Roboto Mono', monospace;
+}

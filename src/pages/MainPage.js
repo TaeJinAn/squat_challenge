@@ -20,7 +20,7 @@ function MainPage() {
   const commitCount = () => {
     setDoneCount(doneCount + addCount);
     setAddCount(0);
-  }
+  };
 
   return (
     <>
@@ -33,8 +33,18 @@ function MainPage() {
             <h1 className="text-xl font-bold">기록</h1>
             <div className="flex gap-2 items-center">
               <span>{addCount}</span>
-              <button className="btn btn-primary text-white" onClick={commitCount}>적용</button>
-              <button className="btn btn-primary text-white" onClick={resetCount}>취소</button>
+              <button
+                className="btn btn-primary text-white"
+                onClick={commitCount}
+              >
+                적용
+              </button>
+              <button
+                className="btn btn-primary text-white"
+                onClick={resetCount}
+              >
+                취소
+              </button>
             </div>
             <div className="flex gap-2 mt-3">
               <button
