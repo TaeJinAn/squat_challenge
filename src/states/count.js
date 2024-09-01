@@ -3,7 +3,7 @@ import confetti from "canvas-confetti";
 import { atom, useRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-const { squatPersistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist();
 
 const myConfetti = confetti.create(document.querySelector("#canvas-confetti"), {
   resize: true,
@@ -15,10 +15,20 @@ const modalOpenAtom = atom({
   default: false,
 });
 
+const snackBarAtom = atom({
+  key: "app/snackOpenAtom",
+  default: {
+    open: false,
+    duration : 6000,
+    msg : "",
+    severity: "success"
+  },
+});
+
 const restCountAtom = atom({
   key: "app/restCountAtom",
   default: 10000,
-  effects_UNSTABLE: [squatPersistAtom],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export function useRecordState() {
@@ -62,4 +72,19 @@ export function useModalOpenState() {
     handleOpen,
     handleClose,
   };
+}
+
+export function useSnackBarState() {
+  const [snackbar, setSnackbar] = useRecoilState(snackBarAtom);
+  const handleOpen = () => setSnackbar({...snackbar, open: true});
+  const handleClose = () => setSnackbar({...snackbar, open: false});
+  const openSnackbar = (msg, duration, severity) => {
+    setSnackbar({open:true, duration: duration, severity: severity, msg:msg});
+  }
+  return {
+    snackbar,
+    handleOpen,
+    handleClose,
+    openSnackbar
+  }
 }

@@ -1,9 +1,10 @@
 import { Button, Modal } from "@mui/material";
-import { useModalOpenState, useRecordState } from "../states";
+import { useModalOpenState, useRecordState, useSnackBarState } from "../states";
 
 export default function EditCountModal() {
   const recordState = useRecordState();
   const modalState = useModalOpenState();
+  const snackbarState = useSnackBarState();
 
   const onClickCancelBtn = () => {
     recordState.setRecordCount(0);
@@ -12,6 +13,7 @@ export default function EditCountModal() {
 
   const onClickCommitCount = () => {
     recordState.commitCount();
+    snackbarState.openSnackbar(`이번 세트에 ${recordState.recordCount}회 수행하셨습니다.`);
     modalState.handleClose();
   }
 
