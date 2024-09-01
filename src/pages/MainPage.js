@@ -1,30 +1,24 @@
 import { Button } from "@mui/material";
-import { useState } from "react";
 import EditCountModal from "../components/EditCountModal";
 import CountNumber from "../components/CountNumber";
+import { useModalOpenState, useRecordState } from "../states";
 
 
 
 function MainPage() {
-  const goalCount = 10000;
-  const [doneCount, setDoneCount] = useState(0);
-  const restCount = goalCount - doneCount;
-  const [addCount, setAddCount] = useState(0);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  const recordState = useRecordState();
+  const modalState = useModalOpenState();
   return (
     <>
       <div className="flex flex-1 justify-center items-center flex-col">
         <div className="font-mono text-[120px] text-blue-400">
-          <CountNumber start={restCount} duration={2}/>
+          <CountNumber start={recordState.goalCount} end={recordState.restCount} duration={2} format={5}/>
         </div>
         <div>
-          <Button variant="contained" onClick={handleOpen}>
+          <Button variant="contained" onClick={modalState.handleOpen}>
             기록
           </Button>
-          <EditCountModal open={open} handleClose={handleClose} />
+          <EditCountModal />
         </div>
       </div>
     </>
