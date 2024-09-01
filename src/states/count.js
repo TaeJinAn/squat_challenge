@@ -1,6 +1,9 @@
 import { useState } from "react";
 import confetti from "canvas-confetti";
 import { atom, useRecoilState } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { squatPersistAtom } = recoilPersist();
 
 const myConfetti = confetti.create(document.querySelector("#canvas-confetti"), {
   resize: true,
@@ -14,7 +17,8 @@ const modalOpenAtom = atom({
 
 const restCountAtom = atom({
   key: "app/restCountAtom",
-  default: 10000
+  default: 10000,
+  effects_UNSTABLE: [squatPersistAtom],
 });
 
 export function useRecordState() {
