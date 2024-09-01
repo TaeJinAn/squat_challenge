@@ -1,78 +1,30 @@
+import { Button } from "@mui/material";
 import { useState } from "react";
-import { nf } from "../utils";
+import EditCountModal from "../components/EditCountModal";
+import CountNumber from "../components/CountNumber";
+
+
 
 function MainPage() {
   const goalCount = 10000;
   const [doneCount, setDoneCount] = useState(0);
   const restCount = goalCount - doneCount;
   const [addCount, setAddCount] = useState(0);
-  const increaseCount = (num) => {
-    setAddCount(addCount + num);
-  };
-  const decreaseCount = (num) => {
-    setAddCount(addCount - num);
-  };
-
-  const resetCount = () => {
-    setAddCount(0);
-  };
-
-  const commitCount = () => {
-    setDoneCount(doneCount + addCount);
-    setAddCount(0);
-  };
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <>
-      <div className="flex flex-1 justify-center items-center">
+      <div className="flex flex-1 justify-center items-center flex-col">
+        <div className="font-mono text-[120px] text-blue-400">
+          <CountNumber start={restCount} duration={2}/>
+        </div>
         <div>
-          <h1 className="text-xl font-bold">현황</h1>
-          <div>남은 횟수 : {nf(restCount)}회</div>
-          <div>실행 횟수 : {nf(doneCount)}회</div>
-          <div className="mt-5">
-            <h1 className="text-xl font-bold">기록</h1>
-            <div className="flex gap-2 items-center">
-              <span>{addCount}</span>
-              <button
-                className="btn btn-primary text-white"
-                onClick={commitCount}
-              >
-                적용
-              </button>
-              <button
-                className="btn btn-primary text-white"
-                onClick={resetCount}
-              >
-                취소
-              </button>
-            </div>
-            <div className="flex gap-2 mt-3">
-              <button
-                className="btn btn-primary text-white"
-                onClick={() => increaseCount(10)}
-              >
-                + 10
-              </button>
-              <button
-                className="btn btn-primary text-white"
-                onClick={() => increaseCount(1)}
-              >
-                + 1
-              </button>
-              <button
-                className="btn btn-primary text-white"
-                onClick={() => decreaseCount(10)}
-              >
-                - 10
-              </button>
-              <button
-                className="btn btn-primary text-white"
-                onClick={() => decreaseCount(1)}
-              >
-                - 1
-              </button>
-            </div>
-          </div>
+          <Button variant="contained" onClick={handleOpen}>
+            기록
+          </Button>
+          <EditCountModal open={open} handleClose={handleClose} />
         </div>
       </div>
     </>
