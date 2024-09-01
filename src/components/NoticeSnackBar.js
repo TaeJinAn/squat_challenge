@@ -2,7 +2,7 @@ import { Alert, Snackbar } from "@mui/material";
 import { useState } from "react";
 import { useSnackBarState } from "../states";
 
-function NoticeSnackBar() {
+export default function NoticeSnackBar() {
   const snackBarState = useSnackBarState();
   return (
     <>
@@ -14,4 +14,3 @@ function NoticeSnackBar() {
     </>
   );
 }
-export default NoticeSnackBar;

@@ -2,8 +2,11 @@ import { useState } from "react";
 import confetti from "canvas-confetti";
 import { atom, useRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import { dateToStr } from "../utils/commonUtil";
 
 const { persistAtom } = recoilPersist();
+
+const { persistAtom: recordHistoryPersist } = recoilPersist();
 
 const myConfetti = confetti.create(document.querySelector("#canvas-confetti"), {
   resize: true,
@@ -19,9 +22,9 @@ const snackBarAtom = atom({
   key: "app/snackOpenAtom",
   default: {
     open: false,
-    duration : 6000,
-    msg : "",
-    severity: "success"
+    duration: 6000,
+    msg: "",
+    severity: "success",
   },
 });
 
@@ -31,10 +34,17 @@ const restCountAtom = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+const recordHistoryAtom = atom({
+  key: "app/recordHistoryAtom",
+  default: [],
+  effects_UNSTABLE: [recordHistoryPersist],
+});
+
 export function useRecordState() {
   const goalCount = 10000;
   const [recordCount, setRecordCount] = useState(0);
   const [restCount, setRestCount] = useRecoilState(restCountAtom);
+  const [recordHistory, setRecordHistory] = useRecoilState(recordHistoryAtom);
 
   const changeRecordCount = (num) => {
     if (num > 0) {
@@ -49,6 +59,11 @@ export function useRecordState() {
   };
 
   const commitCount = () => {
+    const record = {
+      recordCount: recordCount,
+      regDate: dateToStr(new Date()),
+    };
+    setRecordHistory([record, ...recordHistory]);
     setRestCount(restCount - recordCount);
     setRecordCount(0);
   };
@@ -60,6 +75,7 @@ export function useRecordState() {
     setRecordCount,
     changeRecordCount,
     commitCount,
+    recordHistory,
   };
 }
 
@@ -76,15 +92,20 @@ export function useModalOpenState() {
 
 export function useSnackBarState() {
   const [snackbar, setSnackbar] = useRecoilState(snackBarAtom);
-  const handleOpen = () => setSnackbar({...snackbar, open: true});
-  const handleClose = () => setSnackbar({...snackbar, open: false});
+  const handleOpen = () => setSnackbar({ ...snackbar, open: true });
+  const handleClose = () => setSnackbar({ ...snackbar, open: false });
   const openSnackbar = (msg, duration, severity) => {
-    setSnackbar({open:true, duration: duration, severity: severity, msg:msg});
-  }
+    setSnackbar({
+      open: true,
+      duration: duration,
+      severity: severity,
+      msg: msg,
+    });
+  };
   return {
     snackbar,
     handleOpen,
     handleClose,
-    openSnackbar
-  }
+    openSnackbar,
+  };
 }
