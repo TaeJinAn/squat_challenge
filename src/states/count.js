@@ -40,6 +40,11 @@ const recordHistoryAtom = atom({
   effects_UNSTABLE: [recordHistoryPersist],
 });
 
+const optionDrawerAtom = atom({
+  key: "app/optionDrawerAtom",
+  default: false,
+});
+
 export function useRecordState() {
   const goalCount = 10000;
   const [recordCount, setRecordCount] = useState(0);
@@ -107,5 +112,22 @@ export function useSnackBarState() {
     handleOpen,
     handleClose,
     openSnackbar,
+  };
+}
+
+export function useOptionDrawerState() {
+  const [open, setOpen] = useRecoilState(optionDrawerAtom);
+  const [index, setIndex] = useState(0);
+  const handleOpen = (index) => {
+    console.log(index);
+    setOpen(true);
+    setIndex(index);
+  };
+  const handleClose = () => setOpen(false);
+  return {
+    open,
+    index,
+    handleClose,
+    handleOpen,
   };
 }
