@@ -1,4 +1,4 @@
-import { Button, Snackbar } from "@mui/material";
+import { Button } from "@mui/material";
 import EditCountModal from "../components/EditCountModal";
 import CountNumber from "../components/CountNumber";
 import { useModalOpenState, useRecordState } from "../states";

@@ -1,16 +1,15 @@
 import { useRecordState } from "../states";
+import HistoryListItem from "./HistoryListItem";
 
 export default function HistoryList() {
   const recordState = useRecordState();
   return (
     <>
-      <ul>
+      <ul className="flex-1">
         {recordState.recordHistory.map((el, index) => {
           return (
             <>
-              <li>
-                {el.recordCount} regDate : {el.regDate}
-              </li>
+              <HistoryListItem history={el} index={recordState.recordHistory.length - index}/>
             </>
           );
         })}
