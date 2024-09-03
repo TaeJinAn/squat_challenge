@@ -1,4 +1,5 @@
 import HistoryList from "../components/HistoryList";
+import NoticeSnackBar from "../components/NoticeSnackBar";
 import OptionDrawer from "../components/OptionDrawer";
 
 function HistoryPage() {
@@ -8,6 +9,7 @@ function HistoryPage() {
         <HistoryList className="flex-1"/>
       </div>
       <OptionDrawer />
+      <NoticeSnackBar />
     </>
   );
 }
