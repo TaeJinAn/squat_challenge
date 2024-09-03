@@ -31,7 +31,7 @@ function Header() {
                   이전
                 </NavLink>
               )}
-              {location.pathname == "/main" && (
+              {location.pathname != "/history" && (
                 <NavLink
                   to="/history"
                   className={({ isActive }) =>
