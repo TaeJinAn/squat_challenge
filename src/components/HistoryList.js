@@ -9,7 +9,7 @@ export default function HistoryList() {
         {recordState.recordHistory.map((el, index) => {
           return (
             <>
-              <HistoryListItem history={el} index={recordState.recordHistory.length - index}/>
+              <HistoryListItem history={el} id={recordState.recordHistory.length - index}/>
             </>
           );
         })}

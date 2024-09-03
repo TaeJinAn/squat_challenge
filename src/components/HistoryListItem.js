@@ -3,17 +3,17 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import WiseSaying from "./WiseSaying";
 import { useOptionDrawerState } from "../states";
 
-export default function HistoryListItem({ history, index }) {
+export default function HistoryListItem({ history, id }) {
   const optionDrawerState = useOptionDrawerState();
   const onClickOptionBtn = () => {
-    optionDrawerState.handleOpen(index);
+    optionDrawerState.handleOpen(id);
   };
 
   return (
     <>
       <li className="mt-7 mx-20">
         <div className="flex gap-2">
-          <Chip label={`${index}회차`} variant="outlined" />
+          <Chip label={`${id}회차`} variant="outlined" />
           <Chip
             label={`${history.regDate}`}
             variant="outlined"

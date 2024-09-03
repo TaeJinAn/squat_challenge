@@ -3,6 +3,7 @@ import confetti from "canvas-confetti";
 import { atom, useRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { dateToStr } from "../utils/commonUtil";
+import { produce } from "immer";
 
 const { persistAtom } = recoilPersist();
 
@@ -45,6 +46,11 @@ const optionDrawerAtom = atom({
   default: false,
 });
 
+const recordIdAtom = atom({
+  key: "app/recordIdAtom",
+  default: null,
+});
+
 export function useRecordState() {
   const goalCount = 10000;
   const [recordCount, setRecordCount] = useState(0);
@@ -73,6 +79,18 @@ export function useRecordState() {
     setRecordCount(0);
   };
 
+  const removeRecord = (id) => {
+    const index = recordHistory.length - id;
+    const targetCount = recordHistory[index].recordCount;
+    console.log("targetCount",targetCount);
+    setRestCount(restCount + targetCount);
+    setRecordHistory(
+      produce(recordHistory, (draft) => {
+        draft.splice(index, 1);
+      })
+    );
+  };
+
   return {
     goalCount,
     restCount,
@@ -81,6 +99,7 @@ export function useRecordState() {
     changeRecordCount,
     commitCount,
     recordHistory,
+    removeRecord
   };
 }
 
@@ -117,16 +136,15 @@ export function useSnackBarState() {
 
 export function useOptionDrawerState() {
   const [open, setOpen] = useRecoilState(optionDrawerAtom);
-  const [index, setIndex] = useState(0);
-  const handleOpen = (index) => {
-    console.log(index);
+  const [recordId, setRecordId] = useRecoilState(recordIdAtom);
+  const handleOpen = (id) => {
     setOpen(true);
-    setIndex(index);
+    setRecordId(id);
   };
   const handleClose = () => setOpen(false);
   return {
     open,
-    index,
+    recordId,
     handleClose,
     handleOpen,
   };

@@ -5,12 +5,13 @@ import {
   ListItemButton,
   SwipeableDrawer,
 } from "@mui/material";
-import { useOptionDrawerState } from "../states";
+import { useOptionDrawerState, useRecordState } from "../states";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function OptionDrawer() {
   const optionDrawerState = useOptionDrawerState();
-  const onClickDelBtn = () => {};
+  const recordState = useRecordState();
+  const onClickDelBtn = () => {recordState.removeRecord(optionDrawerState.recordId)};
   const onClickEditBtn = () => {};
   return (
     <>
@@ -22,7 +23,7 @@ export default function OptionDrawer() {
       >
         <List className="text-xl">
           <ListItem>
-            <span className="text-blue-500">{optionDrawerState.index}</span>회차
+            <span className="text-blue-500">{optionDrawerState.recordId}</span>회차
           </ListItem>
           <Divider />
           <ListItem>
