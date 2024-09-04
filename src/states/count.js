@@ -51,9 +51,14 @@ const recordIdAtom = atom({
   default: null,
 });
 
+const recordCountAtom = atom({
+  key: "app/recordCountAtom",
+  default: 0,
+});
+
 export function useRecordState() {
   const goalCount = 10000;
-  const [recordCount, setRecordCount] = useState(0);
+  const [recordCount, setRecordCount] = useRecoilState(recordCountAtom);
   const [restCount, setRestCount] = useRecoilState(restCountAtom);
   const [recordHistory, setRecordHistory] = useRecoilState(recordHistoryAtom);
 
@@ -119,6 +124,7 @@ export function useSnackBarState() {
   const handleOpen = () => setSnackbar({ ...snackbar, open: true });
   const handleClose = () => setSnackbar({ ...snackbar, open: false });
   const openSnackbar = (msg, duration, severity) => {
+    console.log(severity);
     setSnackbar({
       open: true,
       duration: duration,

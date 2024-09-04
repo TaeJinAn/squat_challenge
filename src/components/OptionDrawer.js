@@ -16,7 +16,7 @@ export default function OptionDrawer() {
     recordState.removeRecord(optionDrawerState.recordId);
     optionDrawerState.handleClose();
     const msg = optionDrawerState.recordId+"회차의 기록이 삭제 되었습니다.";
-    snackbarState.openSnackbar(msg,5000,"success");
+    snackbarState.openSnackbar(msg,5000,"info");
   };
   const onClickEditBtn = () => {};
   return (

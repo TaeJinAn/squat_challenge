@@ -6,7 +6,7 @@ export default function NoticeSnackBar() {
   return (
     <>
       <Snackbar onClose={snackBarState.handleClose} open={snackBarState.snackbar.open} autoHideDuration={snackBarState.snackbar.duration}>
-        <Alert onClose={snackBarState.handleClose} severity="success" variant="filled">
+        <Alert onClose={snackBarState.handleClose} severity={snackBarState.snackbar.severity} variant="filled">
           {snackBarState.snackbar.msg}
         </Alert>
       </Snackbar>

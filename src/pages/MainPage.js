@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import EditCountModal from "../components/EditCountModal";
+import AddCountModal from "../components/AddCountModal";
 import CountNumber from "../components/CountNumber";
 import { useModalOpenState, useRecordState } from "../states";
 import NoticeSnackBar from "../components/NoticeSnackBar";
@@ -22,7 +22,7 @@ function MainPage() {
           <Button variant="contained" onClick={modalState.handleOpen}>
             기록
           </Button>
-          <EditCountModal />
+          <AddCountModal />
           <NoticeSnackBar />
         </div>
       </div>
