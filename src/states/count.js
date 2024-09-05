@@ -1,4 +1,3 @@
-import { useState } from "react";
 import confetti from "canvas-confetti";
 import { atom, useRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
@@ -69,12 +68,20 @@ export function useRecordState() {
         spread: 160,
       });
     }
+    console.log("changeRecordCount");
     recordCount + num < 0
       ? setRecordCount(0)
       : setRecordCount(recordCount + num);
   };
 
   const commitCount = () => {
+    if(restCount - recordCount >= goalCount){
+      setRestCount(goalCount);
+      return;
+    }
+    if (restCount == 0) {
+      return;
+    }
     const record = {
       recordCount: recordCount,
       regDate: dateToStr(new Date()),
@@ -87,13 +94,22 @@ export function useRecordState() {
   const removeRecord = (id) => {
     const index = recordHistory.length - id;
     const targetCount = recordHistory[index].recordCount;
-    console.log("targetCount",targetCount);
+    console.log("targetCount", targetCount);
     setRestCount(restCount + targetCount);
     setRecordHistory(
       produce(recordHistory, (draft) => {
         draft.splice(index, 1);
       })
     );
+  };
+
+  const modifyRecord = (id) => {
+    const index = recordHistory.length - id;
+    const diff = recordHistory[index].recordCount - recordCount;
+    setRestCount(restCount + diff);
+    setRecordHistory(produce(recordHistory, (draft) => {
+      draft[index].recordCount = recordCount;
+    }));
   };
 
   return {
@@ -104,7 +120,8 @@ export function useRecordState() {
     changeRecordCount,
     commitCount,
     recordHistory,
-    removeRecord
+    removeRecord,
+    modifyRecord
   };
 }
 

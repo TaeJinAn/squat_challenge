@@ -5,20 +5,29 @@ import {
   ListItemButton,
   SwipeableDrawer,
 } from "@mui/material";
-import { useOptionDrawerState, useRecordState, useSnackBarState } from "../states";
+import {
+  useModalOpenState,
+  useOptionDrawerState,
+  useRecordState,
+  useSnackBarState,
+} from "../states";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import ModifyModal from "./ModifyModal";
 
 export default function OptionDrawer() {
   const optionDrawerState = useOptionDrawerState();
   const recordState = useRecordState();
   const snackbarState = useSnackBarState();
+  const modalState = useModalOpenState();
   const onClickDelBtn = () => {
     recordState.removeRecord(optionDrawerState.recordId);
     optionDrawerState.handleClose();
-    const msg = optionDrawerState.recordId+"회차의 기록이 삭제 되었습니다.";
-    snackbarState.openSnackbar(msg,5000,"info");
+    const msg = optionDrawerState.recordId + "회차의 기록이 삭제 되었습니다.";
+    snackbarState.openSnackbar(msg, 5000, "info");
   };
-  const onClickEditBtn = () => {};
+  const onClickEditBtn = () => {
+    modalState.handleOpen();
+  };
   return (
     <>
       <SwipeableDrawer

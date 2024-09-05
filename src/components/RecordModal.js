@@ -1,10 +1,11 @@
 import { Button, Modal } from "@mui/material";
-import { useModalOpenState, useRecordState } from "../states";
+import { useModalOpenState, useOptionDrawerState, useRecordState } from "../states";
 import { useEffect } from "react";
 
 export default function RecordModal({ msg, initialCount = 0, onCommit }) {
   const recordState = useRecordState();
   const modalState = useModalOpenState();
+  const optionDrawerState = useOptionDrawerState();
   useEffect(() => {
     recordState.setRecordCount(initialCount || 0);
   }, [initialCount]);
@@ -18,7 +19,10 @@ export default function RecordModal({ msg, initialCount = 0, onCommit }) {
     <>
       <Modal
         open={modalState.open}
-        onClose={modalState.handleClose}
+        onClose={() => {
+          modalState.handleClose();
+          optionDrawerState.handleClose();
+        }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         className="flex !justify-center !items-center"

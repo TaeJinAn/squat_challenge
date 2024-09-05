@@ -7,9 +7,10 @@ export default function HistoryList() {
     <>
       <ul className="flex-1">
         {recordState.recordHistory.map((el, index) => {
+          const id = recordState.recordHistory.length - index;
           return (
             <>
-              <HistoryListItem history={el} id={recordState.recordHistory.length - index}/>
+              <HistoryListItem history={el} id={id}/>
             </>
           );
         })}

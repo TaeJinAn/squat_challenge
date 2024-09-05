@@ -1,6 +1,5 @@
 import { Button, Chip } from "@mui/material";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import WiseSaying from "./WiseSaying";
 import { useOptionDrawerState } from "../states";
 
 export default function HistoryListItem({ history, id }) {
@@ -23,7 +22,6 @@ export default function HistoryListItem({ history, id }) {
         <div className="mt-4 shadow rounded-[20px] flex">
           <div className="px-5 hover:text-blue-400 flex-grow flex items-center whitespace-pre-wrap leading-relaxed my-5">
             {history.recordCount}회
-            {/* <WiseSaying index={index % 5 == 0 ? index / 5 : null}/> */}
           </div>
           <Button
             onClick={onClickOptionBtn}
