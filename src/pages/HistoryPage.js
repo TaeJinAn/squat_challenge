@@ -14,7 +14,7 @@ function HistoryPage() {
             기록이 없습니다. U.U
           </div>
         ) : (
-          <HistoryList className="flex-1" />
+          <HistoryList />
         )}
       </div>
       <OptionDrawer />

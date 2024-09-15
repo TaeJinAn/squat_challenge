@@ -55,6 +55,13 @@ const recordCountAtom = atom({
   default: 0,
 });
 
+export const arrayTabAtom = atom({
+  key: "app/arrayTabAtom",
+  default: {
+    tab: 0,
+  },
+});
+
 export function useRecordState() {
   const goalCount = 10000;
   const [recordCount, setRecordCount] = useRecoilState(recordCountAtom);
@@ -171,4 +178,15 @@ export function useOptionDrawerState() {
     handleClose,
     handleOpen,
   };
+}
+
+export function useArrayTabState() {
+  const [tabData, setTabData] = useRecoilState(arrayTabAtom);
+  const handleChange = (event, tab) => {
+    setTabData({...tabData, tab: tab});
+  };
+  return {
+    tabData,
+    handleChange
+  }
 }
