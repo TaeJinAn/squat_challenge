@@ -2,17 +2,17 @@ import { Button, Chip } from "@mui/material";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useOptionDrawerState } from "../states";
 
-export default function HistoryListItem({ history, id }) {
+export default function HistoryListItem({ history }) {
   const optionDrawerState = useOptionDrawerState();
   const onClickOptionBtn = () => {
-    optionDrawerState.handleOpen(id);
+    optionDrawerState.handleOpen(history.id);
   };
 
   return (
     <>
       <li className="mt-7 mx-20">
         <div className="flex gap-2">
-          <Chip label={`${id}회차`} variant="outlined" />
+          <Chip label={`${history.id}회차`} variant="outlined" />
           <Chip
             label={`${history.regDate}`}
             variant="outlined"

@@ -33,10 +33,9 @@ export default function HistoryList() {
       <ul className="flex-1">
         <ArrayTab />
         {sortRecord(recordState.recordHistory, tab).map((el, index) => {
-          const id = recordState.recordHistory.length - index;
           return (
             <>
-              <HistoryListItem history={el} id={id} />
+              <HistoryListItem history={el}/>
             </>
           );
         })}

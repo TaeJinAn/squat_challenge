@@ -67,6 +67,7 @@ export function useRecordState() {
   const [recordCount, setRecordCount] = useRecoilState(recordCountAtom);
   const [restCount, setRestCount] = useRecoilState(restCountAtom);
   const [recordHistory, setRecordHistory] = useRecoilState(recordHistoryAtom);
+  const id = recordHistory.length > 0 ? recordHistory[0].id + 1 : 1;
 
   const changeRecordCount = (num) => {
     if (num > 0) {
@@ -90,7 +91,8 @@ export function useRecordState() {
       return;
     }
     const record = {
-      recordCount: recordCount,
+      id,
+      recordCount,
       regDate: dateToStr(new Date()),
     };
     setRecordHistory([record, ...recordHistory]);
